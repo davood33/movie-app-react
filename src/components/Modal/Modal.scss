@@ -38,7 +38,7 @@
       color: $white;
       transition: color .3s ease;
       &:hover{
-          color: &main-color;
+          color: $main-color;
       }
     }
   }

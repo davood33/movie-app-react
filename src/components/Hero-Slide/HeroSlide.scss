@@ -66,8 +66,8 @@
          }
       }
       &__poster {
-         overflow: hidden;
          flex: 1;
+         border-radius: $border-radius;
          @include flex(center, flex-start);
          position: relative;
          img {

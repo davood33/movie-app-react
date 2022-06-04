@@ -5,7 +5,7 @@ const Button = (props) => {
   return (
     <button
       className={`btn ${props.className}`}
-      onclick={props.onClick ? () => props.onClick() : null}
+      onClick={props.onClick ? () => props.onClick() : null}
     >
       {props.children}
     </button>
@@ -15,14 +15,14 @@ export const OutlineButton = (props) => {
   return (
     <Button
       className={`btn-outline ${props.className}`}
-      onclick={props.onClick ? () => props.onClick() : null}
+      onClick={props.onClick ? () => props.onClick() : null}
     >
       {props.children}
     </Button>
   );
 };
 Button.propTypes = {
-  onclick: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default Button;
