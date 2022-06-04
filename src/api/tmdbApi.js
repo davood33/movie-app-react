@@ -45,3 +45,4 @@ const tmdbApi = {
         return axiosClient.get(url, { params: {} });
     },
 };
+export default tmdbApi;
