@@ -25,6 +25,7 @@
   &.shrink {
     height: $header-shrink-height;
     background-color: $body-bg;
+    box-shadow: 10px 0 15px 0 rgba($color: #fff, $alpha: 0.1)
   }
   &__wrap {
     @include flex(center, space-between);

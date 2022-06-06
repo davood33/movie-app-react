@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 import Button, { OutlineButton } from "../Button/Button";
 import "./HeroSlide.scss";
 import Modal, { ModalContent } from "../Modal/Modal";
+import HeroSlideSkeleton from "./HeroSlideSkeleton.jsx";
 const HeroSlide = () => {
    SwiperCore.use([Autoplay]);
 
    const [movieItems, setMovieItems] = useState([]);
-
+   const [isLoading, setisLoading] = useState(true);
    useEffect(() => {
       const getMovies = async () => {
          const params = { page: 1 };
@@ -19,6 +20,7 @@ const HeroSlide = () => {
             const response = await tmdbApi.getMovieList(movieType.popular, {
                params,
             });
+            setisLoading(false);
             setMovieItems(response.results.slice(4, 10));
             console.log(response);
          } catch (error) {
@@ -29,7 +31,12 @@ const HeroSlide = () => {
    }, []);
 
    return (
-      <div className="hero-slide">
+      <div
+         className="hero-slide"
+         style={{ padding: `${isLoading ? "0 2rem" : "0"}` ,
+      marginTop:`${isLoading ? "15px" : "0"}`,
+      marginBottom:`${isLoading ? "1rem" : "3rem"}`}}
+      >
          <Swiper
             modules={[Autoplay]}
             grabCursor={true}
@@ -37,20 +44,24 @@ const HeroSlide = () => {
             slidesPerView={1}
             autoplay={{ delay: 5000 }}
          >
-            {movieItems.map((item, i) => {
-               return (
-                  <SwiperSlide key={i}>
-                     {({ isActive }) => {
-                        return (
-                           <HeroSlideItem
-                              item={item}
-                              className={`${isActive ? "active" : ""}`}
-                           />
-                        );
-                     }}
-                  </SwiperSlide>
-               );
-            })}
+            {isLoading ? (
+               <HeroSlideSkeleton />
+            ) : (
+               movieItems.map((item, i) => {
+                  return (
+                     <SwiperSlide key={i}>
+                        {({ isActive }) => {
+                           return (
+                              <HeroSlideItem
+                                 item={item}
+                                 className={`${isActive ? "active" : ""}`}
+                              />
+                           );
+                        }}
+                     </SwiperSlide>
+                  );
+               })
+            )}
          </Swiper>
          {movieItems.map((item, i) => (
             <TrailerModal key={i} item={item}></TrailerModal>
