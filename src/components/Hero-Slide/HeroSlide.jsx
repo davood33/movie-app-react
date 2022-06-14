@@ -1,15 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import tmdbApi, { category, movieType } from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
-import SwiperCore, { Autoplay } from "swiper";
+import SwiperCore, {
+   Autoplay,
+   EffectFade,
+   EffectFlip,
+   EffectCube,
+   Navigation,
+   EffectCoverflow
+} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
 import Button, { OutlineButton } from "../Button/Button";
 import "./HeroSlide.scss";
 import Modal, { ModalContent } from "../Modal/Modal";
 import HeroSlideSkeleton from "./HeroSlideSkeleton.jsx";
+import gsap, { Elastic } from "gsap";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
+import "swiper/components/effect-fade/effect-fade.min.css";
+
 const HeroSlide = () => {
-   SwiperCore.use([Autoplay]);
+   SwiperCore.use([Autoplay, EffectFade, Navigation, EffectFlip,EffectCoverflow]);
 
    const [movieItems, setMovieItems] = useState([]);
    const [isLoading, setisLoading] = useState(true);
@@ -33,12 +45,22 @@ const HeroSlide = () => {
    return (
       <div
          className="hero-slide"
-         style={{ padding: `${isLoading ? "0 2rem" : "0"}` ,
-      marginTop:`${isLoading ? "15px" : "0"}`,
-      marginBottom:`${isLoading ? "1rem" : "3rem"}`}}
+         style={{
+            padding: `${isLoading ? "0 2rem" : "0"}`,
+            marginTop: `${isLoading ? "15px" : "0"}`,
+            marginBottom: `${isLoading ? "1rem" : "3rem"}`,
+         }}
       >
          <Swiper
-            modules={[Autoplay]}
+            modules={[Autoplay, EffectFade, EffectFlip,EffectCoverflow]}
+            effect={'coverflow'}
+            coverflowEffect={{
+               rotate: 50,
+               stretch: 0,
+               depth: 100,
+               modifier: 1,
+               slideShadows: true,
+             }}     
             grabCursor={true}
             spaceBetween={0}
             slidesPerView={1}
@@ -55,6 +77,7 @@ const HeroSlide = () => {
                               <HeroSlideItem
                                  item={item}
                                  className={`${isActive ? "active" : ""}`}
+                                 isActive={isActive}
                               />
                            );
                         }}
@@ -72,6 +95,8 @@ const HeroSlide = () => {
 const HeroSlideItem = (props) => {
    const navigate = useNavigate();
    const item = props.item;
+   const posterImg = useRef(null);
+   const heroSlide = useRef(null);
    const background = apiConfig.originalImage(
       item.backdrop_path ? item.backdrop_path : item.poster_path
    );
@@ -95,11 +120,22 @@ const HeroSlideItem = (props) => {
       }
       modal.classList.toggle("active");
    };
+   // useEffect(() => {
+   //    if (props.isActive) {
+   //       gsap.to(posterImg.current, {
+   //          duration: .2,
+   //          scale: 1,
+   //          rotate: 0,
+   //       });
+   //    }
+   //    console.log(props.isActive)
+   // }, [props.isActive]);
 
    return (
       <div
          className={`hero-slide__item ${props.className}`}
          style={{ background: `url(${background})` }}
+         ref={heroSlide}
       >
          <div className="hero-slide__item__content container">
             <div className="hero-slide__item__content__info">
@@ -123,7 +159,11 @@ const HeroSlideItem = (props) => {
                </div>
             </div>
             <div className="hero-slide__item__content__poster">
-               <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+               <img
+                  ref={posterImg}
+                  src={apiConfig.w500Image(item.poster_path)}
+                  alt=""
+               />
             </div>
          </div>
       </div>

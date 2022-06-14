@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./MovieList.scss";
 import { SwiperSlide, Swiper } from "swiper/react";
+import SwiperCore, { EffectCoverflow } from "swiper";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import tmdbApi, { category } from "../../api/tmdbApi";
@@ -10,6 +11,7 @@ import MovieCard from "../MovieCard/MovieCard";
 import "react-loading-skeleton/dist/skeleton.css";
 import MovieCardSkeleton from "../MovieCard/MovieCardSkeleton";
 const MovieList = (props) => {
+   SwiperCore.use([EffectCoverflow]);
    const [items, setItems] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
    useEffect(() => {
@@ -38,12 +40,24 @@ const MovieList = (props) => {
       };
       getList();
    }, []);
-   console.log(isLoading);
    const array = Array(10).fill(0);
-   const space = isLoading ? 40 : 10;
+   const space = isLoading ? 40 : 20;
    return (
       <div className="movie-list">
-         <Swiper grabCursor={true} spaceBetween={space} slidesPerView={"auto"}>
+         <Swiper
+            grabCursor={true}
+            spaceBetween={space}
+            slidesPerView={"auto"}
+            modules={EffectCoverflow}
+            // effect={'coverflow'}
+            // coverflowEffect={{
+            //    rotate: 0,
+            //    stretch: 0,
+            //    depth: 50,
+            //    modifier: 1,
+            //    slideShadows: false,
+            //  }}     
+         >
             {isLoading
                ? array.map((item, i) => {
                     return (
