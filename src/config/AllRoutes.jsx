@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {Route, Routes, useLocation } from "react-router-dom";
 import Home from "../pages/Home";
-import Detail from "../pages/Detail";
+import Detail from "../pages/Detail/Detail";
 import Catalog from "../pages/Catalog";
 const AllRoutes = () => {
   function useScrollToTop() {

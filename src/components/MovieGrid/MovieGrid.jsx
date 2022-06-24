@@ -3,7 +3,7 @@ import "./MovieGrid.scss";
 import MovieCard from "../MovieCard/MovieCard";
 import tmdbApi, { category, movieType, tvType } from "../../api/tmdbApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { OutlineButton } from "../Button/Button";
+import Button, { OutlineButton } from "../Button/Button";
 import Input from "../Input/Input";
 const MovieGrid = (props) => {
    const [items, setItems] = useState([]);
@@ -62,7 +62,6 @@ const MovieGrid = (props) => {
                break;
          }
       } else {
-         console.log("search");
          const params = {
             page: page + 1,
             query: keyword,
@@ -124,6 +123,7 @@ const MovieSearch = (props) => {
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
          />
+         <Button className='small' onClick={goToSearch}>Search</Button>
       </div>
    );
 };
