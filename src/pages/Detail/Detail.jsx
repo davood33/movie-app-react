@@ -4,6 +4,7 @@ import "./Detail.scss";
 
 import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
+import CastList from "./CastList";
 const Detail = () => {
    const { category, id } = useParams();
    const [item, setItem] = useState(null);
@@ -13,7 +14,6 @@ const Detail = () => {
          let response = null;
          const params = {};
          response = await tmdbApi.detail(category, id, { params });
-         console.log(response);
          window.scrollTo(0, 0);
          setItem(response);
       };
@@ -56,6 +56,7 @@ const Detail = () => {
                       <div className="section__header">
                         <h2>Casts</h2>
                       </div>
+                        <CastList id={item.id}/>
                      </div>
                   </div>
                </div>

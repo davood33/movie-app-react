@@ -1,9 +1,9 @@
 @use "../../scss/" as *;
 
 .banner {
-   height: 50vh;
+   height: 55vh;
    position: relative;
-   background-position: 0 -70px;
+   background-position: 0 -90px;
    background-size: cover;
    background-repeat: no-repeat;
    &::before {
@@ -30,7 +30,7 @@
    max-width: 1260px;
    margin-left: auto;
    margin-right: auto;
-   margin-top: -200px;
+   margin-top: -180px;
    position: relative;
    padding: 0 2rem;
 
@@ -68,14 +68,55 @@
          & > * ~ * {
             margin-left: 0.5rem;
          }
-         &__item{
-            padding: .5rem 1.5rem;
+         &__item {
+            padding: 0.5rem 1.5rem;
             border: 2px solid $white;
             border-radius: $border-radius;
             font-size: 0.8rem;
             font-weight: 700;
             background-color: $body-bg;
          }
+      }
+   }
+}
+.casts {
+   margin-top: 1rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+   gap: 15px;
+
+   &__item {
+      cursor: pointer;
+      &:hover &__img::before {
+         opacity: 0;
+      }
+      &:hover &__name {
+         color: $main-color;
+      }
+      &__img {
+         border-radius: 6px;
+         box-shadow: 0 0 5px 1px rgba($white, 0.1);
+         padding-top: 160px;
+         background-size: cover;
+         margin-bottom: 0.5rem;
+         transition: transform 0.5s ease;
+         position: relative;
+         &::before {
+            content: "";
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba($black, 0.2);
+            position: absolute;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+         }
+      }
+      &__name {
+         font-size: 0.9rem;
+         font-weight: 600;
+         transition: color 0.3s ease;
       }
    }
 }
