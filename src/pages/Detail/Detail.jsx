@@ -5,6 +5,7 @@ import "./Detail.scss";
 import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 import CastList from "./CastList";
+import VideoList from "./VideoList";
 const Detail = () => {
    const { category, id } = useParams();
    const [item, setItem] = useState(null);
@@ -48,16 +49,25 @@ const Detail = () => {
                      <div className="genres">
                         {item.genres &&
                            item.genres.slice(0, 5).map((genre, i) => {
-                              return <span className="genres__item" key={i}>{genre.name}</span>;
+                              return (
+                                 <span className="genres__item" key={i}>
+                                    {genre.name}
+                                 </span>
+                              );
                            })}
                      </div>
                      <p className="overview">{item.overview}</p>
                      <div className="cast">
-                      <div className="section__header">
-                        <h2>Casts</h2>
-                      </div>
-                        <CastList id={item.id}/>
+                        <div className="section__header">
+                           <h2>Casts</h2>
+                        </div>
+                        <CastList id={item.id} />
                      </div>
+                  </div>
+               </div>
+               <div className="container">
+                  <div className="section mb-3">
+                     <VideoList id={item.id} />
                   </div>
                </div>
             </>

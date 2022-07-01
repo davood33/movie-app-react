@@ -120,3 +120,23 @@
       }
    }
 }
+.video-wrapper {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-row: auto auto;
+   grid-column-gap: 50px;
+   grid-row-gap: 0px;
+}
+.video {
+   margin-bottom: 3rem;
+
+   &__title {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      width: 90%;
+      font-size: .8rem;
+   }
+   iframe {
+      margin: 0 auto !important;
+   }
+}
