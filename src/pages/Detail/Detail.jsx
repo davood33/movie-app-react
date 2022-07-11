@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Detail.scss";
+import DetailSkeleton from "./DetailSkeleton";
 
 import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
@@ -9,7 +10,7 @@ import VideoList from "./VideoList";
 const Detail = () => {
    const { category, id } = useParams();
    const [item, setItem] = useState(null);
-
+   const [isLoading, setIsLoading] = useState(true);
    useEffect(() => {
       const getDetail = async () => {
          let response = null;
@@ -17,13 +18,16 @@ const Detail = () => {
          response = await tmdbApi.detail(category, id, { params });
          window.scrollTo(0, 0);
          setItem(response);
+         setIsLoading(false);
       };
       getDetail();
    }, [category, id]);
 
    return (
       <>
-         {item && (
+         {isLoading ? (
+            <DetailSkeleton />
+         ) : (
             <>
                <div
                   className="banner"

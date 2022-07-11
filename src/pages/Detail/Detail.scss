@@ -140,3 +140,19 @@
       margin: 0 auto !important;
    }
 }
+.container-skeleton{
+   display: grid;
+   grid-template-columns: 300px auto;
+   gap: 50px;
+   margin: 150px 100px;
+}
+.skeleton-item{
+  display: block;
+  border-radius: $border-radius;
+}
+.castSkeleton{
+   width: 70%;
+   display: grid;
+   grid-template-columns: repeat(8,auto);
+   gap: 0;
+}
